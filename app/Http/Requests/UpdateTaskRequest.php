@@ -27,8 +27,8 @@ class UpdateTaskRequest extends FormRequest
             'description' => 'nullable|string',
             'due_date' => 'nullable|date',
             'create_date' => 'nullable|date',
-            'status' => Rule::in(['выполнена', 'не выполнена']),
-            'priority' => Rule::in(['низкий', 'средний', 'высокий']),
+            'status' => Rule::in(['completed', 'not completed']),
+            'priority' => Rule::in(['low', 'medium', 'high']),
             'category' => 'nullable|string',
         ];
     }

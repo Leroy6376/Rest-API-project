@@ -27,8 +27,8 @@ class StoreTaskRequest extends FormRequest
             'description' => 'nullable|string',
             'due_date' => 'required|date',
             'create_date' => 'required|date',
-            'status' => 'required', Rule::in(['выполнена', 'не выполнена']),
-            'priority' => 'required', Rule::in(['низкий', 'средний', 'высокий']),
+            'status' => ['required', Rule::in(['completed', 'not completed'])],
+            'priority' => ['required', Rule::in(['low', 'medium', 'high'])],
             'category' => 'required|string',
         ];
     }

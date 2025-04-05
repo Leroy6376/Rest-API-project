@@ -16,8 +16,8 @@ return new class extends Migration {
             $table->string('description')->nullable();
             $table->dateTime('due_date');
             $table->dateTime('create_date');
-            $table->enum('status', ['выполнена', 'не выполнена'])->default('не выполнена');
-            $table->enum('priority', ['низкий', 'средний', 'высокий']);
+            $table->enum('status', ['completed', 'not completed'])->default('not completed');
+            $table->enum('priority', ['low', 'medium', 'high']);
             $table->string('category');
             $table->timestamps();
         });

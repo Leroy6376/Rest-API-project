@@ -18,13 +18,14 @@ class TaskController extends Controller
     {
         $data = $request->validated();
         $search = $data['search'] ?? '';
+        $per_page = $data['per_page'] ?? null;
 
         if (isset($data['sort'])) {
             $tasks = TaskResource::collection(Task::query()->whereLike('title', "%$search%")->
-            orderBy($data['sort'], 'desc')->paginate($data['per_page'])->withQueryString());
+            orderBy($data['sort'], 'desc')->paginate($per_page)->withQueryString());
         } else {
             $tasks = TaskResource::collection(Task::query()->whereLike('title', "%$search%")->
-            paginate($data['per_page'])->withQueryString());
+            paginate($per_page)->withQueryString());
         }
         return $tasks;
     }

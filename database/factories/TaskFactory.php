@@ -16,8 +16,8 @@ class TaskFactory extends Factory
      */
     public function definition(): array
     {
-        $status_array = ['выполнена', 'не выполнена'];
-        $priority_array = ['низкий', 'средний', 'высокий'];
+        $status_array = ['completed', 'not completed'];
+        $priority_array = ['low', 'medium', 'high'];
         return [
             'title' => fake('ru_RU')->sentence(random_int(1, 5)),
             'description' => fake('ru_RU')->sentence(random_int(0, 20)),
