@@ -109,8 +109,8 @@ class TaskControllerTest extends TestCase
         $this->withoutExceptionHandling();
 
         $task = $this->example_task;
+        Task::create($task);
 
-        $this->postJson('/api/tasks', $task);
         $response = $this->get('/api/tasks/1');
 
         $task['id'] = 1;
@@ -130,10 +130,10 @@ class TaskControllerTest extends TestCase
         $this->withoutExceptionHandling();
 
         $task = $this->example_task;
-        $this->postJson('/api/tasks', $task);
+        Task::create($task);
 
         $task['id'] = 1;
-        $response = $this->putJson('/api/tasks/1', []);
+        $response = $this->patchJson('/api/tasks/1', []);
         $response->assertStatus(200);
         $this->assertEquals($response->json()['data'], $task);
 
@@ -148,13 +148,13 @@ class TaskControllerTest extends TestCase
         ];
 
         foreach ($new_task as $key => $value) {
-            $response = $this->putJson('/api/tasks/1', [$key => $value]);
+            $response = $this->patchJson('/api/tasks/1', [$key => $value]);
             $task[$key] = $value;
             $response->assertStatus(200);
             $this->assertEquals($response->json()['data'], $task);
         }
 
-        $response = $this->putJson('/api/tasks/1', $this->example_task);
+        $response = $this->patchJson('/api/tasks/1', $this->example_task);
         $task = $this->example_task;
         $task['id'] = 1;
         $response->assertStatus(200);
@@ -163,22 +163,22 @@ class TaskControllerTest extends TestCase
 
     public function test_update_negative_test(): void
     {
-        $response = $this->putJson('/api/tasks', $this->example_task);
+        $response = $this->patchJson('/api/tasks', $this->example_task);
         $response->assertStatus(405);
 
-        $response = $this->putJson('/api/tasks/1', $this->example_task);
+        $response = $this->patchJson('/api/tasks/1', $this->example_task);
         $response->assertStatus(404);
     }
 
     public function test_update_negative_test_invalid_parameters(): void
     {
         $task = $this->example_task;
-        $this->postJson('/api/tasks', $task);
+        Task::create($task);
 
-        $response = $this->putJson('/api/tasks/1', ['status' => 'In progress']);
+        $response = $this->patchJson('/api/tasks/1', ['status' => 'In progress']);
         $response->assertStatus(422);
 
-        $response = $this->putJson('/api/tasks/1', ['priority' => 'important']);
+        $response = $this->patchJson('/api/tasks/1', ['priority' => 'important']);
         $response->assertStatus(422);
     }
 
@@ -187,8 +187,8 @@ class TaskControllerTest extends TestCase
         $this->withoutExceptionHandling();
 
         $task = $this->example_task;
+        Task::create($task);
 
-        $this->postJson('/api/tasks', $task);
         $response = $this->delete('/api/tasks/1');
 
         $response->assertStatus(200);
